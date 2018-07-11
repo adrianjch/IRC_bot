@@ -1,6 +1,7 @@
 import socket
 import random
 import time
+import greetings
 #from random import randint
 
 server = 'dyn.thomas-windt.me'
@@ -30,40 +31,6 @@ def send_message_to_channel(message, channel):
         E.g. "#notfun".
     """
     ircsock.send(("PRIVMSG " + channel + " :" + message + "\n").encode())
-
-
-def random_welcome_message(nick):
-    """Returns a random greeting for a person who has joined the channel.
-
-    Args:
-      nick : unicode
-        E.g. "adrianjch".
-        A nickname, or a name to be filled into the greeting.
-
-    Returns:
-      A randomised greeting, like "Hi, adrianjch!"
-    """
-    welcome_messages = [
-        "{nick} has joined!",
-        "Welcome, {nick}!",
-        "Is this {nick}? The real one? :O",
-        "I don't know who you are, but I suppose you can join. ¯\_(ツ)_/¯",
-        "Be careful! {nick} has joined!",
-        "A mysterious {nick} has arrived!",
-        "{nick}!!! I missed you!",
-    ]
-    return random.choice(welcome_messages).format(nick=nick)
-
-
-def random_goodbye_message(nick):
-    goodbye_messages = [
-        "Have a nice day!",
-        "{nick} left.",
-        "I hope to see you soon!",
-        "See you later aligator! \o",
-        "Please come again, don't do like my daddy :(",
-    ]
-    return random.choice(goodbye_messages).format(nick=nick)
 
 
 streak = 0
@@ -105,11 +72,11 @@ for line in handle:
             ircsock.send(("PRIVMSG " + channel + " :\o\n").encode())
 # all joining stuff
     if "JOIN " + channel in line and nick != nickbot:
-        message = random_welcome_message(nick)
+        message = greetings.random_welcome_message(nick)
         send_message_to_channel(message, channel)
 # all leaving stuff
     if "QUIT" in line or "PART" in line:
-        message = random_goodbye_message(nick)
+        message = greetings.random_goodbye_message(nick)
         send_message_to_channel(message, channel)
 # all .rr stuff
     if channel + " :.rr" in line:
@@ -154,10 +121,21 @@ for line in handle:
                         broker_contents = broker.read()
                         rpulls = int(pulls_contents) + 1
                         rshots = int(shots_contents) + 1
-                        percentage_rr = int(shots_contents) / int(pulls_contents) * 100
-                        ircsock.send(("PRIVMSG " + channel + " :The trigger was pulled " + pulls_contents + " times, " + shots_contents + " shots were fired. That's " + str(percentage_rr) + "%. Highest streak: " + hstreak_contents + ", broken by " + broker_contents + ".\n").encode())
+                        percentage_rr = int(shots_contents) / int(pulls_contents)
+                        ircsock.send(("PRIVMSG " + channel + " :The trigger was pulled " + pulls_contents + " times, " + shots_contents + " shots were fired. That's " + str('{:.2%}'.format(percentage_rr)) + ". Highest streak: " + hstreak_contents + ", broken by " + broker_contents + ".\n").encode())
+                        # percentage_rr = int(shots_contents) / int(pulls_contents) * 100
+                        # ircsock.send(("PRIVMSG " + channel + " :The trigger was pulled " + pulls_contents + " times, " + shots_contents + " shots were fired. That's " + str('{:04.2f}'.format(percentage_rr)) + "%. Highest streak: " + hstreak_contents + ", broken by " + broker_contents + ".\n").encode())
 # all PM stuff
     if ":adrianjch!uid297864@id-297864.stonehaven.irccloud.com PRIVMSG zeugma_bot :" in line:
         adrianjch = line[75:]
         print(adrianjch)
         ircsock.send(("PRIVMSG " + channel + " : " + adrianjch + "\n").encode())
+
+    #if channel + " :.command rr off" in line:
+     #   rr_off = line[-15:]
+      #  if rr_off == ".command rr off":
+       #     ircsock.send(("NAMES " + channel + "\n").encode())
+        #    if "@adrianjch" in line:
+         #       ircsock.send(("PRIVMSG " + channel + " :.rr DISABLED\n").encode())
+          #  else:
+           #     ircsock.send(("PRIVMSG " + channel + " :Just OPs can do this action.\n").encode())
