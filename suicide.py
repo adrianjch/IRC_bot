@@ -1,5 +1,6 @@
 import random
 
+
 def random_suicide_message(nick, nickbot):
     suicide_messages = [
         "{nick} slipped in the bathroom and choked on the shower curtain.",
@@ -14,13 +15,13 @@ def random_suicide_message(nick, nickbot):
         "{nickbot} shoots {nick} in the head.",
         "{nickbot} turns on Goosebumps(2015 film) on the TV. {nick} being a scaredy-cat, dies of an heart attack.",
         "{nick} vocally opposed the Clintons and then suddenly disappeared.",
-        "{nick} ate a piece of exotic butter. It was so amazing that it killed them.",
+        "{nick} ate a piece of exotic butter. It was so amazing that it killed him.",
         "{nick} was eaten alive by ants.",
-        "{nick} ripped their own heart out to show their love for {nickbot}.",
+        "{nick} ripped its own heart out to show their love for {nickbot}.",
         "{nickbot} shot {nick} using the Starkiller Base!",
         "{nickbot} gets {nick} to watch anime with it. {nick} couldn't handle it.",
         "{nickbot} hugs {nick} too hard..",
-        "{nick} ate too many laxatives and drowned in their own shit. Ew.",
+        "{nick} ate too many laxatives and drowned in its own shit. Ew.",
         "{nick} was murdered by {nickbot} and everyone knows it, but there is no proof.",
         "{nick} chokes in a trash can.",
         "The bullet missed Harambe and hit {nick} instead. Yay for Harambe!",
