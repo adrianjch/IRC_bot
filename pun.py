@@ -1,0 +1,42 @@
+import random
+
+
+def random_pun_message():
+    pun_messages = [
+        "What do you call a monkey in a mine field? A babooooom!",
+        "Recent survey revealed 6 out of 7 dwarfs aren't happy.",
+        "Without geometry life is pointless.",
+        "What happens to a frog's car when it breaks down? It gets toad.",
+        "What's black and white and read all over? The newspaper.",
+        "'Dad I’m hungry.''Hi hungry I’m dad.'",
+        "Did you hear about the bread factory burning down? They say the business is toast.",
+        "I used to hate facial hair, but then it grew on me.",
+        "Did you know crocodiles could grow up to 15 feet? But most just have 4.",
+        "Why did the belt go to prison? He held up a pair of pants!",
+        "I'm practicing for a bug-eating contest and I've got butterflies in my stomach.",
+        "Why did the octopus beat the shark in a fight? Because it was well armed.",
+        "A steak pun is a rare medium well done.",
+        "Why is the ocean always blue? Because the shore never waves back.",
+        "People who don't eat gluten are really going against the grain.",
+        "Why was Santa's little helper feeling depressed? Because he has low elf esteem.",
+        "What did the grape do when he got stepped on? He let out a little wine.",
+        "Why is no one friends with Dracula? Because he's a pain in the neck.",
+        "Why don’t seagulls fly over the bay? Because then they’d be bay-gulls!",
+        "Breaking news! Energizer Bunny arrested – charged with battery.",
+        "I went to a book store and asked the saleswoman where the Self Help section was, she said if she told me it would defeat the purpose.",
+        "What do vegetarian zombies eat? Grrrrrainnnnnssss.",
+        "To be Frank, I'd have to change my name.",
+        "I just read a book about Stockholm syndrome. It was pretty bad at first, but by the end I liked it.",
+        "Me: If humans lose the ability to hear high frequency volumes as they get older, can my 4 week old son hear a dog whistle? Doctor: No, humans can never hear that high of a frequency no matter what age they are. Me: Trick question... dogs can't whistle.",
+        "I got an A on my origami assignment when I turned my paper into my teacher.",
+        "Astronomers got tired watching the moon go around the earth for 24 hours. They decided to call it a day.",
+        "I just broke my guitar. It's okay, I won't fret.",
+        "How many hipsters does it take to change a lightbulb? Oh, it's a really obscure number. You've probably never heard of it.",
+        "I was just looking at my ceiling. Not sure if it’s the best ceiling in the world, but it’s definitely up there.",
+        "What did the dog say to the two trees? Bark bark.",
+        "Have you ever heard of a music group called Cellophane? They mostly wrap.",
+        "A man walked in to a bar with some asphalt on his arm. He said “Two beers please, one for me and one for the road.”",
+        "Whoever invented the knock-knock joke should get a no bell prize.",
+        "What did one snowman say to the other snow man? Do you smell carrot?",
+    ]
+    return random.choice(pun_messages)
