@@ -3,6 +3,7 @@ import random
 import time
 import greetings
 import suicide
+import pun
 #from random import randint
 
 server = 'xxx.xxxxxxxxxx.xx'
@@ -84,6 +85,12 @@ for line in handle:
         suicide_confirm = line[-8:]
         if suicide_confirm == ".suicide":
             message = suicide.random_suicide_message(nick, nickbot)
+            send_message_to_channel(message, channel)
+# all .pun stuff
+    if channel + " :.pun" in line:
+        pun_confirm = line[-4:]
+        if pun_confirm == ".pun":
+            message = pun.random_pun_message()
             send_message_to_channel(message, channel)
 # all .rr stuff
     if channel + " :.rr" in line:
