@@ -30,3 +30,6 @@ The trigger was pulled XX times, XX shots were fired. That's XX.XX%. Highest str
 
 - ".pun" returns a random pun message.
 I'm practicing for a bug-eating contest and I've got butterflies in my stomach.
+
+
+- ".command <rr/greetings/pun/suicide> <on/off>" works to enable/disable some of the commands. It just will work if it's sent by an Op.
