@@ -2,12 +2,13 @@ import socket
 import random
 import time
 import greetings
+import suicide
 #from random import randint
 
-server = 'dyn.thomas-windt.me'
-channel = '#notfun'
+server = 'xxx.xxxxxxxxxx.xx'
+channel = '#xxxxxx'
 nickbot = 'zeugma_bot'
-port = 5905
+port = xxxx
 
 ircsock = socket.socket()
 ircsock.connect((server, port))
@@ -16,7 +17,7 @@ handle = ircsock.makefile(mode='rw', buffering=1, encoding='utf-8', newline='\r\
 
 print('NICK', nickbot, file=handle)
 print('USER', nickbot, nickbot, nickbot, ':' + nickbot, file=handle)
-print('PASS', 'efkebdnn', file=handle)
+print('PASS', 'xxxxxxx', file=handle)
 
 
 def send_message_to_channel(message, channel):
@@ -78,6 +79,12 @@ for line in handle:
     if "QUIT" in line or "PART" in line:
         message = greetings.random_goodbye_message(nick)
         send_message_to_channel(message, channel)
+# all .suicide stuff
+    if channel + " :.suicide" in line:
+        suicide_confirm = line[-8:]
+        if suicide_confirm == ".suicide":
+            message = suicide.random_suicide_message(nick, nickbot)
+            send_message_to_channel(message, channel)
 # all .rr stuff
     if channel + " :.rr" in line:
         rr_confirm = line[-3:]
@@ -135,7 +142,7 @@ for line in handle:
      #   rr_off = line[-15:]
       #  if rr_off == ".command rr off":
        #     ircsock.send(("NAMES " + channel + "\n").encode())
-        #    if "@adrianjch" in line:
+        #    if "@" + nick in line:
          #       ircsock.send(("PRIVMSG " + channel + " :.rr DISABLED\n").encode())
           #  else:
            #     ircsock.send(("PRIVMSG " + channel + " :Just OPs can do this action.\n").encode())
