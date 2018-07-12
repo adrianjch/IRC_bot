@@ -19,6 +19,13 @@ def random_welcome_message(nick):
         "Be careful! {nick} has joined!",
         "A mysterious {nick} has arrived!",
         "{nick}!!! I missed you!",
+        "Hey guys! {nick} is here!",
+        "Welcome, {nick}. I hope you brought pizza.",
+        "We were waiting for you {nick}",
+        "{nick} it's here, as the prophecy predicted.",
+        "It is a bird! It is a plane! Forget it, it's just {nick}",
+        "{nick} has arrived. The party is over.",
+        "{nick} is here to kick ass and chew gum. And {nick} has no chewing gum left.",
     ]
     return random.choice(welcome_messages).format(nick=nick)
 
