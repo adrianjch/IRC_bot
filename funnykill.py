@@ -1,8 +1,8 @@
 import random
 
 
-def random_suicide_message(nick, nickbot):
-    suicide_messages = [
+def random_funnykill_message(nick, nickbot):
+    funnykill_messages = [
         "{nick} slipped in the bathroom and choked on the shower curtain.",
         "{nick} trips over his own shoe laces and dies.",
         "{nick} died from a high salt intake.",
@@ -35,5 +35,6 @@ def random_suicide_message(nick, nickbot):
         "{nick} died from a tragic amount of bad succ.",
         "{nick} fires a supersonic frozen turkey at {nick}, killing it instantly.",
         "{nickbot} pushes {nick} into the cold vacuum of space.",
+        "{nick} dies due to lack of friends.",
     ]
-    return random.choice(suicide_messages).format(nick=nick, nickbot=nickbot)
+    return random.choice(funnykill_messages).format(nick=nick, nickbot=nickbot)
