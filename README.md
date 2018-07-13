@@ -24,7 +24,7 @@ Have a nice day!
 The trigger was pulled XX times, XX shots were fired. That's XX.XX%. Highest streak: XX, broken by XXXXXXXX.
 
 
-- ".suicide" returns a random suicide message.
+- ".funnykill" returns a random funny kill message.
 {bot} was so swag that {user} died due to it. #Swag
 
 
@@ -33,3 +33,7 @@ I'm practicing for a bug-eating contest and I've got butterflies in my stomach.
 
 
 - ".command <rr/greetings/pun/suicide> <on/off>" works to enable/disable some of the commands. It just will work if it's sent by an Op.
+
+
+- ".pizza" gives you a pizza with random ingredients
+{bot} serves to {user} a pizza with mozzarella, double cheese and pepperoni.
