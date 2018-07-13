@@ -2,8 +2,9 @@ import socket
 import random
 import time
 import greetings
-import suicide
+import funnykill
 import pun
+import food
 # from random import randint
 
 server = 'XXX.XXXXXXXXX.XX'
@@ -39,7 +40,8 @@ streak = 0
 rr_status = 1
 greetings_status = 1
 pun_status = 1
-suicide_status = 0
+funnykill_status = 1
+pizza_status = 1
 ops = ["Vield", "adrianjch", "zeugma_bot", "Q"]
 with open('actual_streak.txt', 'r') as astreak:
     astreak_contents = astreak.read()
@@ -67,6 +69,17 @@ for line in handle:
         ircsock.send(('JOIN ' + channel + '\n').encode())
     # if "End of /NAMES list" in line:
     # ircsock.send(("PRIVMSG " + channel + " :Yes, hello.\n").encode())
+# all .pizza thing
+    if channel + " :.pizza" in line:
+        if pizza_status == 1:
+            pizza_confirm = line[-6:]
+            if pizza_confirm == ".pizza":
+                message = food.random_pizza_message(nick)
+                send_message_to_channel(message, channel)
+                print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :" + message)
+        else:
+            print(time.strftime("%Y-%m-%d %H:%M:%S ",time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.pizza is actually disabled. Ask an Op to enable that command.")
+            ircsock.send(("PRIVMSG " + channel + " :.pizza is actually disabled. Ask an Op to enable that command.\n").encode())
 # bananaphone thing
     if channel + " :ringringringringringringring" in line:
         ringringringringringringring_confirm = line[-28:]
@@ -91,17 +104,17 @@ for line in handle:
             message = greetings.random_goodbye_message(nick)
             send_message_to_channel(message, channel)
             print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :" + message)
-# all .suicide stuff
-    if channel + " :.suicide" in line:
-        if suicide_status == 1:
-            suicide_confirm = line[-8:]
-            if suicide_confirm == ".suicide":
-                message = suicide.random_suicide_message(nick, nickbot)
+# all .funnykill stuff
+    if channel + " :.funnykill" in line:
+        if funnykill_status == 1:
+            funnykill_confirm = line[-10:]
+            if funnykill_confirm == ".funnykill":
+                message = funnykill.random_funnykill_message(nick, nickbot)
                 send_message_to_channel(message, channel)
                 print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :" + message)
         else:
-            print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.suicide is actually disabled. Ask an Op to enable that command.")
-            ircsock.send(("PRIVMSG " + channel + " :.suicide is actually disabled. Ask an Op to enable that command.\n").encode())
+            print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.funnykill is actually disabled. Ask an Op to enable that command.")
+            ircsock.send(("PRIVMSG " + channel + " :.funnykill is actually disabled. Ask an Op to enable that command.\n").encode())
 # all .pun stuff
     if channel + " :.pun" in line:
         if pun_status == 1:
@@ -282,32 +295,62 @@ for line in handle:
             print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.pun is already enabled.")
             ircsock.send(("PRIVMSG " + channel + " :.pun is already enabled.\n").encode())
 
-    if channel + " :.command suicide off" in line:
-        if suicide_status == 1:
-            suicide_off = line[-20:]
-            if suicide_off == ".command suicide off":
+    if channel + " :.command funnykill off" in line:
+        if funnykill_status == 1:
+            funnykill_off = line[-22:]
+            if funnykill_off == ".command funnykill off":
                 if nick in ops:
-                    suicide_status = 0
-                    print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.suicide DISABLED")
-                    ircsock.send(("PRIVMSG " + channel + " :.suicide DISABLED\n").encode())
+                    funnykill_status = 0
+                    print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.funnykill DISABLED")
+                    ircsock.send(("PRIVMSG " + channel + " :.funnykill DISABLED\n").encode())
                 else:
                     print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :Just Ops can do this action.")
                     ircsock.send(("PRIVMSG " + channel + " :Just Ops can do this action.\n").encode())
         else:
-            print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.suicide is already disabled.")
-            ircsock.send(("PRIVMSG " + channel + " :.suicide is already disabled.\n").encode())
+            print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.funnykill is already disabled.")
+            ircsock.send(("PRIVMSG " + channel + " :.funnykill is already disabled.\n").encode())
 
-    if channel + " :.command suicide on" in line:
-        if suicide_status == 0:
-            suicide_on = line[-19:]
-            if suicide_on == ".command suicide on":
+    if channel + " :.command funnykill on" in line:
+        if funnykill_status == 0:
+            funnykill_on = line[-21:]
+            if funnykill_on == ".command funnykill on":
                 if nick in ops:
-                    suicide_status = 1
-                    print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.suicide ENABLED")
-                    ircsock.send(("PRIVMSG " + channel + " :.suicide ENABLED\n").encode())
+                    funnykill_status = 1
+                    print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.funnykill ENABLED")
+                    ircsock.send(("PRIVMSG " + channel + " :.funnykill ENABLED\n").encode())
                 else:
                     print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :Just Ops can do this action.")
                     ircsock.send(("PRIVMSG " + channel + " :Just Ops can do this action.\n").encode())
         else:
-            print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.suicide is already enabled.")
-            ircsock.send(("PRIVMSG " + channel + " :.suicide is already enabled.\n").encode())
+            print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.funnykill is already enabled.")
+            ircsock.send(("PRIVMSG " + channel + " :.funnykill is already enabled.\n").encode())
+
+    if channel + " :.command pizza off" in line:
+        if pizza_status == 1:
+            pizza_off = line[-18:]
+            if pizza_off == ".command pizza off":
+                if nick in ops:
+                    pizza_status = 0
+                    print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.pizza DISABLED")
+                    ircsock.send(("PRIVMSG " + channel + " :.pizza DISABLED\n").encode())
+                else:
+                    print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :Just Ops can do this action.")
+                    ircsock.send(("PRIVMSG " + channel + " :Just Ops can do this action.\n").encode())
+        else:
+            print(time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.pizza is already disabled.")
+            ircsock.send(("PRIVMSG " + channel + " :.pizza is already disabled.\n").encode())
+
+        if channel + " :.command pizza on" in line:
+            if pizza_status == 0:
+                pizza_on = line[-17:]
+                if pizza_on == ".command pizza on":
+                    if nick in ops:
+                        pizza_status = 1
+                        print(time.strftime("%Y-%m-%d %H:%M:%S ",time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.pizza ENSABLED")
+                        ircsock.send(("PRIVMSG " + channel + " :.pizza ENABLED\n").encode())
+                    else:
+                        print(time.strftime("%Y-%m-%d %H:%M:%S ",time.gmtime()) + nickbot + " PRIVMSG " + channel + " :Just Ops can do this action.")
+                        ircsock.send(("PRIVMSG " + channel + " :Just Ops can do this action.\n").encode())
+            else:
+                print(time.strftime("%Y-%m-%d %H:%M:%S ",time.gmtime()) + nickbot + " PRIVMSG " + channel + " :.pizza is already enabled.")
+                ircsock.send(("PRIVMSG " + channel + " :.pizza is already enabled.\n").encode())
