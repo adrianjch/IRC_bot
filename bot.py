@@ -7,7 +7,7 @@ import pun
 import food
 # from random import randint
 
-server = 'XXX.XXXXXXXXX.XX'
+server = 'euroserv.fr.quakenet.org'
 channel = '#XXXXXX'
 nickbot = 'zeugma_bot'
 port = XXXX
@@ -19,7 +19,6 @@ handle = ircsock.makefile(mode='rw', buffering=1, encoding='utf-8', newline='\r\
 
 print('NICK', nickbot, file=handle)
 print('USER', nickbot, nickbot, nickbot, ':' + nickbot, file=handle)
-print('PASS', 'XXXXXXXX', file=handle)
 
 
 def send_message_to_channel(message, channel):
@@ -38,6 +37,7 @@ def send_message_to_channel(message, channel):
 
 streak = 0
 ops = ["Vield", "adrianjch", "zeugma_bot", "Q"]
+users = ["Vield", "adrianjch", "zeugma_bot", "Q", "muliro", "Filipa", "NeatNit", "GhostsDaddy", "zeugm_bot", "fishbot", "WOLFI3654atNU", "Vary_", "Vary"]
 with open('actual_streak.txt', 'r') as astreak:
     astreak_contents = astreak.read()
     streak = int(astreak_contents)
@@ -67,11 +67,11 @@ with open('commands_config.txt', 'r') as config:
         pizza_status = 0
 
 for line in handle:
-    line = time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + line.strip()
+    line = time.strftime("%Y-%m-%d %H:%M:%S ", time.localtime()) + line.strip()
     print(line)
     nick_end = line.find("!")
     nick = line[21:nick_end]
-    printer = time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) + nickbot + " PRIVMSG " + channel + " :"
+    printer = time.strftime("%Y-%m-%d %H:%M:%S ", time.localtime()) + nickbot + " PRIVMSG " + channel + " :"
     with open('rrstats_pulled.txt', 'r') as pulls:
         with open('rrstats_shots.txt', 'r') as shots:
             with open('rrstats_streak.txt', 'r') as hstreak:
@@ -87,6 +87,9 @@ for line in handle:
             write_hstreak.write(str(max_streak))
     if "End of /MOTD command" in line:
         ircsock.send(('JOIN ' + channel + '\n').encode())
+    if "PING" in line:
+        # ircsock.send(("PRIVMSG " + channel + " :pong.\n").encode())
+        print("PONG :" + line.split(':')[3], file=handle)
     # if "End of /NAMES list" in line:
     # ircsock.send(("PRIVMSG " + channel + " :Yes, hello.\n").encode())
 # all .pizza thing
@@ -100,10 +103,17 @@ for line in handle:
         else:
             print(printer + ".pizza is actually disabled. Ask an Op to enable that command.")
             ircsock.send(("PRIVMSG " + channel + " :.pizza is actually disabled. Ask an Op to enable that command.\n").encode())
+
+    if channel + " :.pizza @" in line:
+        if pizza_status == 1:
+            if line.split('@')[2] in users:
+                message = food.random_pizza_message(line.split('@')[2])
+                send_message_to_channel(message, channel)
 # bananaphone thing
     if channel + " :ringringringringringringring" in line:
         ringringringringringringring_confirm = line[-28:]
         if ringringringringringringring_confirm == "ringringringringringringring":
+            # print("PRIVMSG " + channel + " BANANAPHONE!", file=handle)
             print(printer + "BANANAPHONE!")
             ircsock.send(("PRIVMSG " + channel + " :BANANAPHONE!\n").encode())
 # o/ thing
@@ -211,7 +221,7 @@ for line in handle:
         print(printer + adrianjch_message)
         ircsock.send(("PRIVMSG " + channel + " :" + adrianjch_message + "\n").encode())
 # all raw log stuff
-    if time.strftime("%Y-%m-%d %H:%M:%S ", time.gmtime()) in line:
+    if time.strftime("%Y-%m-%d %H:%M:%S ", time.localtime()) in line:
         with open('rawlog.txt', 'a') as write_rawlog:
             write_rawlog.write(line + '\n')
 
